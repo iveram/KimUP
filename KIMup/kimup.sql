@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-08-2017 a las 21:10:38
+-- Tiempo de generación: 05-09-2017 a las 04:34:23
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -60,7 +60,7 @@ CREATE TABLE `mermas` (
 --
 
 INSERT INTO `mermas` (`codigo`, `fecha`, `cantidad_mermas`, `motivo`, `id`) VALUES
-(7100, '2017-06-19', 10, 'Caducidad', 15);
+(7100, '2017-09-19', 10, 'Caducidad', 15);
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,7 @@ CREATE TABLE `meta` (
 --
 
 INSERT INTO `meta` (`monto`) VALUES
-(10000);
+(2000000);
 
 -- --------------------------------------------------------
 
@@ -90,6 +90,7 @@ CREATE TABLE `productos` (
   `codigo` bigint(20) UNSIGNED NOT NULL,
   `descripcion` varchar(50) NOT NULL,
   `proveedor` varchar(50) NOT NULL,
+  `vencimiento` date NOT NULL,
   `cantidad` int(10) NOT NULL,
   `precio_compra` int(10) NOT NULL,
   `precio_venta` int(10) NOT NULL,
@@ -102,17 +103,18 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`fecha`, `codigo`, `descripcion`, `proveedor`, `cantidad`, `precio_compra`, `precio_venta`, `departamento`, `minimo`, `cant_actual`) VALUES
-('2017-08-23', 7100, 'Camarones importados 500 grs.', 'Mar verde', 50, 3500, 6790, 'Congelados', 5, 50),
-('2017-06-01', 7123, 'Aceite de oliva extra virgen 1lt.', 'Talliani', 200, 2500, 5400, 'Despensa', 20, 150),
-('2017-06-02', 7340, 'Queso cheddar laminado', 'Dos alamos', 100, 200, 1590, 'Lacteos', 10, 90),
-('2017-06-19', 7446, 'Choclo dulce 400 grs.', 'Minuto verde', 100, 600, 1599, 'Congelados', 10, 88),
-('2017-06-08', 7657, 'Arroz integral 450 grs.', 'Miraflores', 200, 300, 950, 'Despensa', 30, 180),
-('2017-06-18', 7665, 'Cerveza nacional 985cc.', 'Stella Artois', 100, 560, 1999, 'Bebidas y licores', 15, 75),
-('2017-06-06', 7734, 'Lasagna precocida 360 grs.', 'Lucchetti', 200, 200, 760, 'Despensa', 30, 200),
-('2017-06-17', 7788, 'Agua purificada con gas 500cc.', 'Benedictino', 100, 290, 549, 'Bebidas y licores', 15, 82),
-('2017-06-15', 7789, 'Pechuga pollo bandeja', 'Ariztia', 100, 2000, 4790, 'Carniceria', 20, 95),
-('2017-06-17', 7890, 'Yoghurt Light Natural 115 grs.', 'Danone', 250, 60, 210, 'Lacteos', 20, 200);
+INSERT INTO `productos` (`fecha`, `codigo`, `descripcion`, `proveedor`, `vencimiento`, `cantidad`, `precio_compra`, `precio_venta`, `departamento`, `minimo`, `cant_actual`) VALUES
+('2017-09-23', 7100, 'Camarones importados 500 grs.', 'Mar verde', '2017-12-21', 50, 3500, 6790, 'Congelados', 5, 50),
+('2017-09-01', 7123, 'Aceite de oliva extra virgen 1lt.', 'Talliani', '2018-09-18', 200, 2500, 5400, 'Despensa', 20, -100),
+('2017-09-02', 7340, 'Queso cheddar laminado', 'Dos alamos', '2017-11-03', 100, 200, 1590, 'Lacteos', 10, 40),
+('2017-09-19', 7446, 'Choclo dulce 400 grs.', 'Minuto verde', '2018-01-01', 100, 600, 1599, 'Congelados', 10, 28),
+('2017-09-08', 7657, 'Arroz integral 450 grs.', 'Miraflores', '2017-09-19', 200, 300, 950, 'Despensa', 30, 80),
+('2017-09-18', 7665, 'Cerveza nacional 985cc.', 'Stella Artois', '2019-09-30', 100, 560, 1999, 'Bebidas y licores', 15, -50),
+('2017-09-06', 7734, 'Lasagna precocida 360 grs.', 'Lucchetti', '2017-09-30', 200, 200, 760, 'Despensa', 30, 200),
+('2017-09-17', 7788, 'Agua purificada con gas 500cc.', 'Benedictino', '2017-09-22', 100, 290, 549, 'Bebidas y licores', 15, -8),
+('2017-09-15', 7789, 'Pechuga pollo bandeja', 'Ariztia', '2017-09-13', 100, 2000, 4790, 'Carniceria', 20, 70),
+('0000-00-00', 7876876, 'h', 'hjkbkj', '2017-08-31', 9, 7, 7, 'j', 7, 9),
+('0000-00-00', 565785768, 'u', 'h', '2017-09-01', 9, 8, 8, 'k', 8, 9);
 
 -- --------------------------------------------------------
 
@@ -134,15 +136,15 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`codigo`, `descripcion`, `cantidad`, `fecha`, `hora`, `id`) VALUES
-(7123, '', 50, '2017-06-20', '05:00:00.000000', 1),
-(7340, '', 10, '2017-06-20', '00:00:00.000000', 5),
-(7789, '', 5, '2017-06-19', '00:00:00.000000', 6),
-(7789, '', 15, '2017-06-20', '00:00:00.000000', 7),
-(7446, '', 12, '2017-05-20', '00:00:00.000000', 8),
-(7788, '', 18, '2017-06-20', '00:00:00.000000', 9),
-(7890, '', 50, '2017-05-20', '00:00:00.000000', 12),
-(7657, '', 20, '2017-06-18', '00:00:00.000000', 13),
-(7665, '', 25, '2017-06-18', '00:00:00.000000', 14);
+(7123, '', 50, '2017-09-20', '05:00:00.000000', 1),
+(7340, '', 10, '2017-09-20', '00:00:00.000000', 5),
+(7789, '', 5, '2017-09-19', '00:00:00.000000', 6),
+(7789, '', 15, '2017-09-20', '00:00:00.000000', 7),
+(7446, '', 12, '2017-09-20', '00:00:00.000000', 8),
+(7788, '', 18, '2017-09-20', '00:00:00.000000', 9),
+(7890, '', 50, '2017-09-20', '00:00:00.000000', 12),
+(7657, '', 20, '2017-09-18', '00:00:00.000000', 13),
+(7665, '', 25, '2017-09-18', '00:00:00.000000', 14);
 
 --
 -- Índices para tablas volcadas
