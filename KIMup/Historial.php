@@ -100,6 +100,11 @@
 
                                       
                                     $sql7="SELECT a.departamento,SUM(a.precio_venta*b.cantidad),(((SUM(a.precio_venta*b.cantidad))*100)/(SELECT SUM(a.precio_venta * b.cantidad) FROM productos a, ventas b WHERE a.codigo=b.codigo)) from productos a, ventas b WHERE a.codigo=b.codigo AND month(b.fecha)='{$mes}' GROUP BY a.departamento";
+                                    
+                                    #p_Ene14=p_Ene13/(IPC_Ene2014/100) 
+                                    $sql8="SELECT ROUND((c.precio_venta)/(SELECT (a.valor/100)),0)FROM reporte_ext a,ventas b, productos c  WHERE b.codigo=c.codigo AND month(a.fecha)='{$mes}' ";
+                                      
+                                    
                                     //$result = mysql_query($sql);
                                     $result1 = mysql_query($sql1);
                                     //$result2 = mysql_query($sql2);
@@ -108,6 +113,7 @@
                                     $result5 = mysql_query($sql5);
                                     $result6 = mysql_query($sql6);
                                     $result7 = mysql_query($sql7);
+                                    $result8 = mysql_query($sql8);
 
                                      echo "<table class='Historial'>";
                                         echo "<tr id='invh'>
@@ -133,15 +139,20 @@
                                               </tr>\n"; 
                                       }                   
                                       
-                                      echo "<th colspan =5>Participación departamentos</th>
+                                      echo "<th colspan =6>Participación departamentos</th>
                                           <tr id='invh'>
                                                 <td colspan=3>Departamento</td>
                                                 <td>Venta</td>
                                                 <td>% venta</td>
+                                                <td>Precio segun IPC</td>
                                           </tr>"; 
                                          while ($row = mysql_fetch_row($result7))
                                          { 
-                                            echo "<td colspan=3>$row[0]</td><td>$".number_format($row[1])."</td><td>$row[2]%</td></tr>\n";                          
+                                            echo "<td colspan=3>$row[0]</td><td>$".number_format($row[1])."</td><td>$row[2]%</td></tr>";                          
+                                         }
+                                         while ($row = mysql_fetch_row($result8))
+                                         { 
+                                            echo "<td>$row[0]</td></tr>\n";                          
                                          }
                                      echo "</table><br>";
                                 }	
