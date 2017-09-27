@@ -102,8 +102,8 @@
                                     $sql7="SELECT a.departamento,SUM(a.precio_venta*b.cantidad),(((SUM(a.precio_venta*b.cantidad))*100)/(SELECT SUM(a.precio_venta * b.cantidad) FROM productos a, ventas b WHERE a.codigo=b.codigo)) from productos a, ventas b WHERE a.codigo=b.codigo AND month(b.fecha)='{$mes}' GROUP BY a.departamento";
                                     
                                     #p_Ene14=p_Ene13/(IPC_Ene2014/100) 
-                                    $sql8="SELECT ROUND((c.precio_venta)/(SELECT (a.valor/100)),0)FROM reporte_ext a,ventas b, productos c  WHERE b.codigo=c.codigo AND month(a.fecha)='{$mes}' ";
-                                      
+                                    $sql8="SELECT c.descripcion,c.precio_venta,ROUND((c.precio_venta)/(SELECT (a.valor/100)),0),(c.precio_venta -ROUND((c.precio_venta)/(SELECT (a.valor/100)),0))FROM reporte_ext a,ventas b, productos c WHERE b.codigo=c.codigo AND month(a.fecha)='{$mes}' ";
+                                   
                                     
                                     //$result = mysql_query($sql);
                                     $result1 = mysql_query($sql1);
@@ -143,16 +143,23 @@
                                           <tr id='invh'>
                                                 <td colspan=3>Departamento</td>
                                                 <td>Venta</td>
-                                                <td>% venta</td>
+                                                <td>% venta</td></tr>
+                                                <tr>
+                                                <td>Precio segun IPC</td>
                                                 <td>Precio segun IPC</td>
                                           </tr>"; 
                                          while ($row = mysql_fetch_row($result7))
                                          { 
                                             echo "<td colspan=3>$row[0]</td><td>$".number_format($row[1])."</td><td>$row[2]%</td></tr>";                          
                                          }
+                                        echo "<th colspan =5>IPC</th>";
                                          while ($row = mysql_fetch_row($result8))
                                          { 
-                                            echo "<td>$row[0]</td></tr>\n";                          
+                                            echo "<tr><td>$row[0]</td>
+                                            <td colspan=2>$row[1]</td>
+                                            <td>$row[2]</td>
+                                            <td>$row[2]</td>
+                                            </tr>\n";                          
                                          }
                                      echo "</table><br>";
                                 }	
