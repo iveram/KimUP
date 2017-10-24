@@ -95,12 +95,12 @@
                                                 <td>$row[0]</td>
                                                 <td>$row[2]</td>
                                                 <td>$row[3]</td>
-                                                <td>$row[5]</td>
+                                                <td>$row[6]</td>
+                                                <td>$row[11]</td>
                                                 <td>$row[10]</td>
+                                                <td>$".number_format($row[7])."</td>                                                
+                                                <td>$".number_format($row[8])."</td>
                                                 <td>$row[9]</td>
-                                                <td>$".number_format($row[6])."</td>                                                
-                                                <td>$".number_format($row[7])."</td>
-                                                <td>$row[8]</td>
                                                 <td id='img'><img src ='img/cancelar.png' id='accion' title='Borrar' onclick=Borrar('$row[1]')></td>
                                          </tr> \n";                                     
                                 } 	                  

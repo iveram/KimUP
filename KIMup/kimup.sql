@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-09-2017 a las 15:14:16
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 5.6.31
+-- Tiempo de generación: 24-10-2017 a las 07:29:17
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -120,6 +118,7 @@ CREATE TABLE `productos` (
   `codigo` bigint(20) UNSIGNED NOT NULL,
   `descripcion` varchar(50) NOT NULL,
   `proveedor` varchar(50) NOT NULL,
+  `proveedor_correo` varchar(100) NOT NULL,
   `vencimiento` date NOT NULL,
   `cantidad` int(10) NOT NULL,
   `precio_compra` int(10) NOT NULL,
@@ -133,19 +132,17 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`fecha`, `codigo`, `descripcion`, `proveedor`, `vencimiento`, `cantidad`, `precio_compra`, `precio_venta`, `departamento`, `minimo`, `cant_actual`) VALUES
-('2017-09-23', 7100, 'Camarones importados 500 grs.', 'Mar verde', '2017-12-21', 50, 3500, 6790, 'Congelados', 5, 50),
-('2017-09-01', 7123, 'Aceite de oliva extra virgen 1lt.', 'Talliani', '2018-09-18', 200, 2500, 5400, 'Despensa', 20, 200),
-('2017-09-02', 7340, 'Queso cheddar laminado', 'Dos alamos', '2017-11-03', 100, 200, 1590, 'Lacteos', 10, 100),
-('2017-09-19', 7446, 'Choclo dulce 400 grs.', 'Minuto verde', '2018-01-01', 100, 600, 1599, 'Congelados', 10, 100),
-('2017-09-08', 7657, 'Arroz integral 450 grs.', 'Miraflores', '2017-09-19', 200, 300, 760, 'Despensa', 30, 200),
-('2017-09-18', 7665, 'Cerveza nacional 985cc.', 'Stella Artois', '2019-09-30', 100, 560, 1999, 'Bebidas y licores', 15, 100),
-('2017-09-06', 7734, 'Lasagna precocida 360 grs.', 'Lucchetti', '2017-09-30', 200, 200, 608, 'Despensa', 30, 200),
-('2017-09-17', 7788, 'Agua purificada con gas 500cc.', 'Benedictino', '2017-09-22', 100, 290, 439, 'Bebidas y licores', 15, 100),
-('2017-09-15', 7789, 'Pechuga pollo bandeja', 'Ariztia', '2017-09-13', 100, 2000, 3832, 'Carniceria', 20, 5),
-('2016-08-01', 7800, 'Galleta choco chips 125 grs', 'Costa', '2018-08-08', 3, 200, 500, 'galletas', 1, NULL),
-('0000-00-00', 7876876, 'h', 'hjkbkj', '2017-08-31', 9, 7, 6, 'j', 7, 9),
-('0000-00-00', 565785768, 'u', 'h', '2017-09-01', 9, 8, 6, 'k', 8, 9);
+INSERT INTO `productos` (`fecha`, `codigo`, `descripcion`, `proveedor`, `proveedor_correo`, `vencimiento`, `cantidad`, `precio_compra`, `precio_venta`, `departamento`, `minimo`, `cant_actual`) VALUES
+('2017-10-23', 7100, 'Camarones importados 500 grs.', 'Mar verde', 'contacto@marverde.cl', '2017-12-21', 50, 3500, 6790, 'Congelados', 5, 50),
+('2017-10-01', 7123, 'Aceite de oliva extra virgen 1lt.', 'Talliani', 'contacto@talliani.cl', '2018-09-18', 200, 2500, 5400, 'Despensa', 20, -140),
+('2017-10-02', 7340, 'Queso cheddar laminado', 'Dos alamos', 'contacto@alamos.cl', '2017-11-03', 100, 200, 1590, 'Lacteos', 10, -100),
+('2017-10-19', 7446, 'Choclo dulce 400 grs.', 'Minuto verde', 'contacto@minutoverde.cl', '2018-01-01', 100, 600, 1599, 'Congelados', 10, -140),
+('2017-10-08', 7657, 'Arroz integral 450 grs.', 'Miraflores', 'contacto@miraflores.cl', '2017-09-19', 200, 300, 950, 'Despensa', 30, -200),
+('2017-10-18', 7665, 'Cerveza nacional 985cc.', 'Stella Artois', 'contacto@stella.cl', '2019-09-30', 100, 560, 1999, 'Bebidas y licores', 15, -400),
+('2017-10-06', 7701, 'Jugo naranja ', 'Zuko', 'contacto@zuko.cl', '2017-11-24', 200, 230, 350, 'Jugos', 20, 200),
+('2017-10-06', 7734, 'Lasagna precocida 360 grs.', 'Lucchetti', 'contacto@luccheti.cl', '2017-09-30', 200, 200, 760, 'Despensa', 30, 200),
+('2017-10-15', 7789, 'Pechuga pollo bandeja', 'Ariztia', 'contacto@ariztia.cl', '2017-09-13', 100, 2000, 4790, 'Carniceria', 20, 0),
+('2017-10-06', 7815, 'Avena tradicional', 'Quaker', 'contacto@quaker.cl', '2017-10-29', 100, 560, 890, 'Despensa', 20, 100);
 
 -- --------------------------------------------------------
 
@@ -156,14 +153,14 @@ INSERT INTO `productos` (`fecha`, `codigo`, `descripcion`, `proveedor`, `vencimi
 CREATE TABLE `reporte_ext` (
   `id` int(10) NOT NULL,
   `valor` float NOT NULL,
-  `fecha` date NOT NULL
+  `feha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `reporte_ext`
 --
 
-INSERT INTO `reporte_ext` (`id`, `valor`, `fecha`) VALUES
+INSERT INTO `reporte_ext` (`id`, `valor`, `feha`) VALUES
 (1, 114.49, '2017-01-01'),
 (2, 114.76, '2017-02-01'),
 (3, 115.2, '2017-03-01'),
@@ -172,7 +169,7 @@ INSERT INTO `reporte_ext` (`id`, `valor`, `fecha`) VALUES
 (6, 115.18, '2017-06-01'),
 (7, 115.45, '2017-07-01'),
 (8, 115.69, '2017-08-01'),
-(9, 115, '2017-09-01'),
+(9, 0, '2017-09-01'),
 (10, 0, '2017-10-01'),
 (11, 0, '2017-11-01'),
 (12, 0, '2017-12-01');
@@ -205,8 +202,7 @@ INSERT INTO `ventas` (`codigo`, `descripcion`, `cantidad`, `fecha`, `hora`, `id`
 (7788, '', 18, '2017-09-20', '00:00:00.000000', 9),
 (7890, '', 50, '2017-09-20', '00:00:00.000000', 12),
 (7657, '', 20, '2017-09-18', '00:00:00.000000', 13),
-(7665, '', 25, '2017-09-18', '00:00:00.000000', 14),
-(7800, 'Galleta choco chips 200 grs', 2, '2016-08-02', '09:20:21.000000', 15);
+(7665, '', 25, '2017-09-18', '00:00:00.000000', 14);
 
 --
 -- Índices para tablas volcadas
@@ -242,7 +238,7 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `reporte_ext`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `feha` (`fecha`);
+  ADD KEY `feha` (`feha`);
 
 --
 -- Indices de la tabla `ventas`
@@ -268,8 +264,7 @@ ALTER TABLE `mermas`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;COMMIT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

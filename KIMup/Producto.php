@@ -38,19 +38,23 @@
                       <fieldset id = "productos">
 				          <legend>INGRESAR PRODUCTO</legend><br><br><br>
                               <div id = "uno">    
-                                  <div>Código de barras: <input type="number" name="codigo" required="required" maxlength="100" /></div>	
-                                  <div>Descripción: <input type="text" name="desc" required="required" maxlength="50" /></div><br>
+                                  <div>Código de barras: <input type="number" name="codigo" required="required" maxlength="100" /></div>	 
+                                  <div>Vencimiento: <input type="date" name="vence" required="required"  /></div>            
                                   <div>Costo: <input type="number" name="pcompra" required="required" maxlength="10" /></div>		 
                                   <div>Cant. mínima: <input type="number" name="min" required="required" maxlength="10" /></div>	
-                                  <div>Precio venta: <input type="number" name="pventa" required="required" maxlength="10" /></div>                        
+                                  <div>Precio venta: <input type="number" name="pventa" required="required" maxlength="10" /></div>   <br>
+                                  <div>Proveedor: <input type="text" name="prov" required="required" maxlength="50" /></div>
+                                                       
                               </div>	     
                               
-                              <div id = "dos">
-                                  <div>Proveedor: <input type="text" name="prov" required="required" maxlength="50" /></div>
-                                  <div>Vencimiento: <input type="date" name="vence" required="required"  /></div><br>            
+                              <div id = "dos"> 
+                                 <div>Descripción: <input type="text" name="desc" required="required" maxlength="50" /></div>
                                   <div>Cantidad: <input type="number" name="cant" required="required" maxlength="10" /></div>
                                   <div>Cant. actual: <input type="number" name="cant_a" maxlength="10" /></div>	
-                                  <div>Departamento: <input type="text" name="depto" required="required" maxlength="50" /></div><br><br>	
+                                  <div>Departamento: <input type="text" name="depto" required="required" maxlength="50" /></div>	<br><br>
+                                  <div>Correo proveedor: <input type="text" name="prov_correo" required="required" maxlength="150" /></div>
+                                  
+                                 
                                   <div><input type="submit" name="submit" value="ENVIAR"/><br></div><br> 
                               </div>                                        
                      </fieldset>  
@@ -62,6 +66,7 @@
                             if (isset($_POST['codigo'])){$codigo = $_POST['codigo'];} else {$codigo = "";}
                             if (isset($_POST['desc'])){$desc = $_POST['desc'];} else {$desc = "";}
                             if (isset($_POST['prov'])){$prov = $_POST['prov'];} else {$prov = "";}
+                            if (isset($_POST['prov_correo'])){$prov_correo= $_POST['prov_correo'];} else {$prov_correo = "";}
                             if (isset($_POST['vence'])){$v = $_POST['vence'];} else {$v = "";}
                             if (isset($_POST['cant'])){$cant = $_POST['cant'];} else {$cant = "";}
                             if (isset($_POST['pcompra'])){$pcompra = $_POST['pcompra'];} else {$pcompra = "";}
@@ -70,8 +75,8 @@
                             if (isset($_POST['min'])){$min = $_POST['min'];} else {$min = "";}
                             if (isset($_POST['cant_a'])){$cant_a = $_POST['cant'];} else {$cant_a = "";}
 
-                            $sql = "INSERT INTO productos(fecha, codigo, descripcion, proveedor, vencimiento, cantidad, precio_compra, precio_venta, departamento, minimo, cant_actual) 
-                            VALUES('$f', '$codigo', '$desc', '$prov', '$v', '$cant', '$pcompra', '$pventa', '$depto', '$min', '$cant_a')";
+                            $sql = "INSERT INTO productos(fecha, codigo, descripcion, proveedor, proveedor_correo, vencimiento, cantidad, precio_compra, precio_venta, departamento, minimo, cant_actual) 
+                            VALUES('$f', '$codigo', '$desc', '$prov', '$prov_correo', '$v', '$cant', '$pcompra', '$pventa', '$depto', '$min', '$cant_a')";
                             $result = mysql_query($sql);}
                                 
                     ?>
