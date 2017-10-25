@@ -10,11 +10,39 @@
 	<head>  		
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <title>KIM up</title>  
+        <title>KIM up</title> 
+		<?php
+                    include("conexion.inc");
+                    mysql_select_db("kimup", $BDD); 
+                  
+                    $sql3 = "SELECT * FROM productos where CURDATE() >= DATE_SUB(vencimiento,INTERVAL 4 DAY) and MONTH(vencimiento)= MONTH(CURDATE())";
+                    $result2 = mysql_query($sql3);
+			
+					$totalFilas = mysql_num_rows($result2);
+					echo $totalFilas;
+					
+		?>
         <link rel="stylesheet" href="General.css" type="text/css" media="screen"> 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
         <script type="text/javascript" src="jquery214.js"></script>		
 		<script type="text/javascript">
-            
+			Push.Permission.request();
+			var anuncio = "<?php echo $totalFilas; ?>" ;
+			if (anuncio != 0){
+            	
+				Push.create('Caducidad', {
+    			body: 'Hay productos que requieren atención',
+    			icon: 'icon.png',
+    			timeout: 8000,               // Timeout before notification closes automatically.
+    			vibrate: [100, 100, 100],    // An array of vibration pulses for mobile devices.
+   				onClick: function() {
+       		 // Callback for when the notification is clicked. 
+			 		location.href="ofertas.php"
+        			console.log(this);
+				
+    			}  
+				});
+			}
             $(document).ready(Principal);            
             function Principal() 
             { 

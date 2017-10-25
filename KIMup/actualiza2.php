@@ -15,6 +15,6 @@
 <html> 
 <head> 
 <title>Redirigir al navegador a otra URL</title> 
-<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=inventario.php"/> 
+<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=ofertas.php"/> 
 </head>  
 </html>

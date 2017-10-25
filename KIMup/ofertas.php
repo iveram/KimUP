@@ -31,7 +31,18 @@
 				miObjetoAjax.send(null);
 				miObjetoAjax.onreadystatechange = RecibeRespuesta;
 			}
-			
+			function Oferta(codigo)
+			{
+				if(!confirm("Se aplicará una oferta " + codigo))
+					return;
+				
+				var descuento;
+				descuento=prompt('Ingrese descuento:','');
+				url = "inventario_borrar2.php?codigo="+codigo+"&oferta="+descuento;
+				miObjetoAjax.open("GET", url);
+				miObjetoAjax.send(null);
+				miObjetoAjax.onreadystatechange = RecibeRespuesta;
+			}
 			function RecibeRespuesta()
 			{
 				if(miObjetoAjax.readyState == 4)document.getElementById("Inventario").innerHTML = miObjetoAjax.responseText;
@@ -58,20 +69,19 @@
                 
                
               <article id ='Inventario'> 			  
-                    <form method="post" action="actualiza.php" >            
+                    <form method="post" action="actualiza2.php" >            
                       <fieldset id = "productos">
-				          <legend>INVENTARIO</legend><br><br>       
-                            <button type="submit" id="boton" name="act"><img src="img/boton-de-actualizar-pagina.png"></button>
-                            <button title = "Exportar a Excel" id="botonh"><img src="img/icon.png"></button> 
-                            <button type="submit" title = "Generar oferta" name='botono' id="botono"><img src="img/etiqueta-de-oferta.png"></button> 
+				          <legend>Ofertas</legend><br><br>       
+                            <button type="submit" id="boton" name="act"><img src="img/boton-de-actualizar-pagina.png"></button>               
+                            <button type="submit" title = "Aplicar oferta a todo" name='botono' id="botono"><img src="img/etiqueta-de-oferta.png"></button> 
                             
                             <br><br>                       
                              <?php
                             include("conexion.inc");
                             mysql_select_db("kimup", $BDD); 
                   
-                            $sql = "SELECT * FROM productos where month(fecha)={$a} order by descripcion asc";
-                            $result = mysql_query($sql); 
+                            $sql3 = "SELECT * FROM productos where CURDATE() >= DATE_SUB(vencimiento,INTERVAL 4 DAY) and MONTH(vencimiento)= MONTH(CURDATE())";
+                            $result2 = mysql_query($sql3); 
                             
                              echo "<table class='Inventario'>";
                                 echo "<tr id='invh'>
@@ -85,10 +95,12 @@
                                             <td>Costo</td>
                                             <td>Precio venta</td>
                                             <td>Departamento</td>
-                                            <td id = 'img'></td>
+											<td id = 'img'></td>
+                                            <td id = 'img2'></td>
+											
                                       </tr><br>"; 
 
-                                while ($row = mysql_fetch_row($result))
+                                while ($row = mysql_fetch_row($result2))
                                 { 
                                     echo "<tr>
                                                 <td>$row[1]</td>
@@ -101,23 +113,14 @@
                                                 <td>$".number_format($row[7])."</td>                                                
                                                 <td>$".number_format($row[8])."</td>
                                                 <td>$row[9]</td>
-                                                <td id='img'><img src ='img/cancelar.png' id='accion' title='Borrar' onclick=Borrar('$row[1]')></td>
+                                                <td id='img'><img src='img/cancelar.png' id='accion' title='Borrar' onclick=Borrar('$row[1]')></td>
+												<td id='img2'><img src='img/oferta.png' id='accion' title='Oferta' onclick=Oferta('$row[1]')></td>
                                          </tr> \n";                                     
                                 } 	                  
                                 echo "</table>";	
                         
                         ?>
-                        <br><br>                  
-                 
-                        <script> 
-                            $("#botonh").click(function(){
-                                $(".Inventario").table2excel({
-                                exclude: "img",
-                                name: "Inventario",
-                                filename: "Inventario" 
-                                });
-                                });
-                        </script>
+                        <br><br>                                            
                         </fieldset><footer>Copyright © 2017 KIM up - Escuela de Ingeniería en Informática</footer>	
 				 
 				   </form>                                                                         
