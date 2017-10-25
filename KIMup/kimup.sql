@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2017 a las 07:29:17
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 25-10-2017 a las 14:21:39
+-- Versión del servidor: 10.1.25-MariaDB
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -44,6 +46,20 @@ INSERT INTO `login` (`id`, `usuario`, `clave`, `md5`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `maestra`
+--
+
+CREATE TABLE `maestra` (
+  `codigoprov` int(10) NOT NULL,
+  `codigo` int(10) NOT NULL,
+  `precio` int(10) NOT NULL,
+  `fecha` date NOT NULL,
+  `descripcion` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `mermas`
 --
 
@@ -60,7 +76,7 @@ CREATE TABLE `mermas` (
 --
 
 INSERT INTO `mermas` (`codigo`, `fecha`, `cantidad_mermas`, `motivo`, `id`) VALUES
-(7100, '2017-09-19', 10, 'Caducidad', 15);
+(7100, '2017-10-19', 10, 'Caducidad', 15);
 
 -- --------------------------------------------------------
 
@@ -69,15 +85,17 @@ INSERT INTO `mermas` (`codigo`, `fecha`, `cantidad_mermas`, `motivo`, `id`) VALU
 --
 
 CREATE TABLE `meta` (
-  `monto` int(100) NOT NULL
+  `id` int(11) NOT NULL,
+  `monto` int(100) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `meta`
 --
 
-INSERT INTO `meta` (`monto`) VALUES
-(0);
+INSERT INTO `meta` (`id`, `monto`, `fecha`) VALUES
+(1, 100000, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -169,8 +187,8 @@ INSERT INTO `reporte_ext` (`id`, `valor`, `feha`) VALUES
 (6, 115.18, '2017-06-01'),
 (7, 115.45, '2017-07-01'),
 (8, 115.69, '2017-08-01'),
-(9, 0, '2017-09-01'),
-(10, 0, '2017-10-01'),
+(9, 115.51, '2017-09-01'),
+(10, 116, '2017-10-01'),
 (11, 0, '2017-11-01'),
 (12, 0, '2017-12-01');
 
@@ -194,9 +212,9 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`codigo`, `descripcion`, `cantidad`, `fecha`, `hora`, `id`) VALUES
-(7123, '', 50, '2017-09-20', '05:00:00.000000', 1),
-(7340, '', 10, '2017-09-20', '00:00:00.000000', 5),
-(7789, '', 5, '2017-09-19', '00:00:00.000000', 6),
+(7123, '', 50, '2017-10-20', '05:00:00.000000', 1),
+(7340, '', 10, '2017-10-20', '00:00:00.000000', 5),
+(7789, '', 5, '2017-10-19', '00:00:00.000000', 6),
 (7789, '', 15, '2017-09-20', '00:00:00.000000', 7),
 (7446, '', 12, '2017-09-20', '00:00:00.000000', 8),
 (7788, '', 18, '2017-09-20', '00:00:00.000000', 9),
@@ -220,6 +238,12 @@ ALTER TABLE `login`
 ALTER TABLE `mermas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `codigo_2` (`codigo`);
+
+--
+-- Indices de la tabla `meta`
+--
+ALTER TABLE `meta`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `ofertas`
@@ -261,10 +285,16 @@ ALTER TABLE `login`
 ALTER TABLE `mermas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
+-- AUTO_INCREMENT de la tabla `meta`
+--
+ALTER TABLE `meta`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
